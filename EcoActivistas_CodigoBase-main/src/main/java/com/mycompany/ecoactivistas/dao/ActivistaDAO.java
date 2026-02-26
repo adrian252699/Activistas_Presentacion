@@ -120,4 +120,30 @@ public class ActivistaDAO implements IActivistaDAO {
             return false;
         }
     }
+
+    @Override
+    public List<Activista> obtenerTodosFiltro(String filtro) {
+        String sql = "SELECT * FROM activista WHERE nombre LIKE ?";
+        List<Activista> lista = new ArrayList<>();
+
+        try (Connection conn = ConexionDB.getConnection(); PreparedStatement ps = conn.prepareStatement(sql)) {
+
+            ps.setString(1, "%" + filtro + "%");
+            ResultSet rs = ps.executeQuery();
+
+            while (rs.next()) {
+                Activista activista = new Activista();
+                activista.setIdActivista(rs.getInt("idActivista"));
+                activista.setNombre(rs.getString("nombre"));
+                activista.setFchIngreso(rs.getDate("fchIngreso"));
+                activista.setTelefono(rs.getString("telefono"));
+                lista.add(activista);
+            }
+
+        } catch (SQLException e) {
+            System.err.println("Error al obtener activistas por filtro: " + e.getMessage());
+        }
+
+        return lista;
+    }
 }

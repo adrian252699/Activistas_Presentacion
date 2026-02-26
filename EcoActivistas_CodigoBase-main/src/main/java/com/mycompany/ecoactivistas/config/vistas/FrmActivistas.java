@@ -98,11 +98,70 @@ public class FrmActivistas extends javax.swing.JPanel {
         limpiarCampos();
     }
     
+    private void eliminar(){
+        try {
+            int id = Integer.parseInt(txtId.getText());
+
+            int confirm = JOptionPane.showConfirmDialog(this,
+                    "¿Seguro que quieres eliminar este cliente?",
+                    "Confirmar eliminación",
+                    JOptionPane.YES_NO_OPTION);
+
+            if (confirm == JOptionPane.YES_OPTION){
+                boolean exito = acController.eliminarActivista(id);
+                if (exito) {
+                    JOptionPane.showMessageDialog(this, "Activista eliminado correctamente.");
+                    cargarActivistas();
+                    limpiarCampos(); // limpia y oculta otra vez
+                }else {
+                    JOptionPane.showMessageDialog(
+                            this,
+                            "Ocurrio un error al eliminar al Activista.",
+                            "Error",
+                            JOptionPane.ERROR_MESSAGE
+                    );
+                }
+            }
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(
+                    this,
+                    "Error: " + e.getMessage(),
+                    "Error",
+                    JOptionPane.ERROR_MESSAGE
+            );
+        }
+    }
+    
+    private void buscar(){
+        String nombre = txtBuscar.getText().trim();
+        
+        if (nombre.isEmpty()) {
+            cargarActivistas();
+        }else{
+            tblActivistas.setModel(acController.obtenerTablaActivistasPorFiltro(nombre));
+        }
+    }
+    
+    private void cargarDatos(){
+        int fila = tblActivistas.getSelectedRow();
+        if (fila >= 0) {
+            txtId.setText(tblActivistas.getValueAt(fila, 0).toString());
+            txtNombre.setText(tblActivistas.getValueAt(fila, 1).toString());
+            txtTelefono.setText(tblActivistas.getValueAt(fila, 2).toString());
+            dateIngreso.setText(tblActivistas.getValueAt(fila, 3).toString());
+
+            btnGuardar.setText("ACTUALIZAR");
+            btnEliminar.setVisible(true);
+        }
+    }
+    
     private void limpiarCampos(){
         txtId.setText("");
         txtNombre.setText("");
         txtTelefono.setText("");
         dateIngreso.setText("");
+        btnGuardar.setText("Guardar");
+        btnEliminar.setVisible(false);
         
     }
 
@@ -133,8 +192,8 @@ public class FrmActivistas extends javax.swing.JPanel {
 
         setPreferredSize(new java.awt.Dimension(700, 400));
 
-        jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 36)); // NOI18N
         jLabel1.setText("Administración de Activistas");
+        jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 36)); // NOI18N
 
         jLabel2.setText("Nombre");
 
@@ -167,13 +226,29 @@ public class FrmActivistas extends javax.swing.JPanel {
 
             }
         ));
+        tblActivistas.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tblActivistasMouseClicked(evt);
+            }
+        });
         pnlTable.setViewportView(tblActivistas);
+
+        txtBuscar.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtBuscarKeyReleased(evt);
+            }
+        });
 
         jLabel5.setText("Id");
 
         txtId.setEnabled(false);
 
         btnEliminar.setText("Eliminar");
+        btnEliminar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnEliminarActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -255,6 +330,21 @@ public class FrmActivistas extends javax.swing.JPanel {
         // TODO add your handling code here:
         limpiarCampos();
     }//GEN-LAST:event_btnCancelarActionPerformed
+
+    private void txtBuscarKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtBuscarKeyReleased
+        // TODO add your handling code here:}
+        buscar();
+    }//GEN-LAST:event_txtBuscarKeyReleased
+
+    private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarActionPerformed
+        // TODO add your handling code here:
+        eliminar();
+    }//GEN-LAST:event_btnEliminarActionPerformed
+
+    private void tblActivistasMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblActivistasMouseClicked
+        // TODO add your handling code here:
+        cargarDatos(); 
+    }//GEN-LAST:event_tblActivistasMouseClicked
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

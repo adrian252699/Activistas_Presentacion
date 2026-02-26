@@ -13,6 +13,8 @@ com\mycompany\ecoactivistas\config\vistas\FrmProblemas$1.class
 com\mycompany\ecoactivistas\config\vistas\DlgBuscarClientes$4$1.class
 com\mycompany\ecoactivistas\config\vistas\FrmPrincipal$2.class
 com\mycompany\ecoactivistas\interfaces\IActivistaDAO.class
+com\mycompany\ecoactivistas\config\vistas\FrmActivistas$3.class
+com\mycompany\ecoactivistas\config\vistas\FrmActivistas$5.class
 com\mycompany\ecoactivistas\config\vistas\FrmProblemas$4.class
 com\mycompany\ecoactivistas\config\vistas\FrmPrincipal$3.class
 com\mycompany\ecoactivistas\config\vistas\FrmProblemas$2.class
@@ -28,6 +30,7 @@ com\mycompany\ecoactivistas\config\vistas\DlgBuscarClientes$3.class
 com\mycompany\ecoactivistas\config\vistas\FrmActivistas.class
 com\mycompany\ecoactivistas\config\vistas\FrmActivistas$2.class
 com\mycompany\ecoactivistas\interfaces\IClienteDAO.class
+com\mycompany\ecoactivistas\config\vistas\FrmActivistas$4.class
 com\mycompany\ecoactivistas\model\ProblemaActivista.class
 com\mycompany\ecoactivistas\config\vistas\FrmClientes$1.class
 com\mycompany\ecoactivistas\config\vistas\FrmClientes$6.class

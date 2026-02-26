@@ -104,5 +104,15 @@ public class ActivistaController {
         }
         return modelo;
     }
+    
+    public DefaultTableModel obtenerTablaActivistasPorFiltro(String filtro) {
+        String[] columnas = {"ID", "NOMBRE", "TELEFONO", "FECHA INGRESO"};
+        DefaultTableModel modelo = new DefaultTableModel(null, columnas);
+        List<Activista> lista = activistaDAO.obtenerTodosFiltro(filtro);
+        for (Activista a : lista) {
+            modelo.addRow(new Object[]{a.getIdActivista(), a.getNombre(), a.getTelefono(),a.getFchIngreso()});
+        }
+        return modelo;
+    }
 }
 
